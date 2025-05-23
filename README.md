@@ -25,12 +25,8 @@ A Python-based Content Delivery Network (CDN) for efficient video streaming usin
 ├── replica_server1.py      # Replica (cache) server 1
 ├── replica_server2.py      # Replica (cache) server 2
 ├── replica_server3.py      # Replica (cache) server 3
-├── cert/                   # SSL certificate and key
-│   ├── cert.pem
-│   └── key.pem
 ├── videos/                 # Place your original .mp4 files here
-├── run_all.sh              # Bash script to launch servers (Linux)
-├── run_all_windows.ps1     # PowerShell script to launch servers (Windows)
+├── run_all.bat             # Batch script to launch servers 
 └── README.md
 ```
 
@@ -54,27 +50,10 @@ This project uses HTTPS (required for HTTP/2). You need a self-signed certificat
 
 ```bash
 mkdir -p cert
-cat > cert/openssl.cnf <<EOF
-[req]
-default_bits = 2048
-prompt = no
-default_md = sha256
-distinguished_name = dn
-x509_extensions = v3_req
-
-[dn]
-CN = localhost
-
-[v3_req]
-subjectAltName = @alt_names
-
-[alt_names]
-DNS.1 = localhost
-EOF
 
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout cert/key.pem -out cert/cert.pem \
-  -config cert/openssl.cnf
+  -config cert.cnf
 ```
 
 ---
@@ -87,19 +66,11 @@ Put `.mp4` video files into the `videos/` folder.
 
 ### 🚀 Step 2: Launch All Servers
 
-#### Linux:
-
-```bash
-chmod +x run_all.sh
-./run_all.sh
-```
 
 #### Windows (PowerShell):
 
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\run_all_windows.ps1
-```
+---
+.\run_all.bat
 
 ---
 
@@ -111,7 +82,7 @@ Visit:
 https://localhost:8000
 ```
 
-> 🛑 You'll need to accept the browser's security warning about the self-signed certificate.
+> 🛑 You'll need to accept the browser's security warning about the self-signed certificate on origin server.
 
 ---
 
@@ -126,24 +97,10 @@ https://localhost:8000
 
 ## 🧰 Testing
 
-Try accessing:  
-```
-https://localhost:8084/myvideo.mp4
-```
-
-or load it from the client UI at `https://localhost:8000`.
-
----
-
-## 📜 License
-
-MIT License. Feel free to fork, modify, and use.
+Load the videos from the client UI at `https://localhost:8000`.
 
 ---
 
 ## 🙌 Acknowledgments
 
-- [Quart](https://pgjones.gitlab.io/quart/)
-- [Hypercorn](https://pgjones.gitlab.io/hypercorn/)
-- [aiohttp](https://docs.aiohttp.org/)
 - Inspired by real-world CDN architectures like Akamai and Cloudflare.
