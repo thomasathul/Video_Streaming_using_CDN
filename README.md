@@ -26,6 +26,7 @@ A Python-based Content Delivery Network (CDN) for efficient video streaming usin
 ├── replica_server2.py      # Replica (cache) server 2
 ├── replica_server3.py      # Replica (cache) server 3
 ├── videos/                 # Place your original .mp4 files here
+├── cert.cnf                # Certification configuration file
 ├── run_all.bat             # Batch script to launch servers 
 └── README.md
 ```
