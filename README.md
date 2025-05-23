@@ -67,7 +67,7 @@ Put `.mp4` video files into the `videos/` folder.
 ### 🚀 Step 2: Launch All Servers
 
 
-#### Windows (PowerShell):
+#### Windows:
 
 ---
 .\run_all.bat
